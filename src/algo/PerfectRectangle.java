@@ -4,7 +4,6 @@ import base.Point;
 import base.Rectangle;
 import kdtree.KDNode;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -86,15 +85,6 @@ public class PerfectRectangle {
         }
 
         return new Point(xSum / nPoints, ySum / nPoints);
-    }
-
-    //basic test
-    public static void main(String[] args) {
-        PerfectRectangle pr = new PerfectRectangle();
-        Rectangle[] rectArr = new Rectangle[]{
-                new Rectangle(new Point(2,6), new Point(5,2), new Point(2,2), new Point(5,6)),
-                new Rectangle(new Point(5,6), new Point(7,2), new Point(5,2), new Point(7,6))};
-        System.out.println(pr.isPerfectRectangle(Arrays.asList(rectArr)));
     }
 
 }
