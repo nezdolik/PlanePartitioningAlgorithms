@@ -5,15 +5,48 @@ package base;
  */
 public class Rectangle {
 
-    private int x1;
-    private int x2;
-    private int y1;
-    private int y2;
+    private Point leftUp;
+    private Point leftBottom;
+    private Point rightUp;
+    private Point rightBottom;
 
-    public Rectangle(int x1, int y2, int y1, int x2) {
-        this.x1 = x1;
-        this.y2 = y2;
-        this.y1 = y1;
-        this.x2 = x2;
+    public Rectangle(Point leftUp, Point rightBottom, Point leftBottom, Point rightUp) {
+        this.setLeftUp(leftUp);
+        this.setRightBottom(rightBottom);
+        this.setLeftBottom(leftBottom);
+        this.setRightUp(rightUp);
+    }
+
+
+    public Point getLeftUp() {
+        return leftUp;
+    }
+
+    public void setLeftUp(Point leftUp) {
+        this.leftUp = leftUp;
+    }
+
+    public Point getLeftBottom() {
+        return leftBottom;
+    }
+
+    public void setLeftBottom(Point leftBottom) {
+        this.leftBottom = leftBottom;
+    }
+
+    public Point getRightUp() {
+        return rightUp;
+    }
+
+    public void setRightUp(Point rightUp) {
+        this.rightUp = rightUp;
+    }
+
+    public Point getRightBottom() {
+        return rightBottom;
+    }
+
+    public void setRightBottom(Point rightBottom) {
+        this.rightBottom = rightBottom;
     }
 }
