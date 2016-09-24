@@ -18,17 +18,24 @@ public class KDNode {
     public KDNode(Point p, boolean isVerticalPartition){
         this.p = p;
         this.verticalPartition = isVerticalPartition;
+        this.root = this;
     }
 
-    public void add(KDNode node){
+    public KDNode(Point p, boolean isVerticalPartition, KDNode root){
+        this.p = p;
+        this.verticalPartition = isVerticalPartition;
+        this.root = root;
+    }
+
+    public void add(Point point){
         if (root == null){
-            this.root = node;
+            this.root = new KDNode(p, true);
         } else {
-            add(root, node);
+            add(root, point);
         }
     }
 
-    public void add(KDNode node, KDNode toAdd){
+    public void add(KDNode node, Point toAdd){
         KDNode curr = node;
         KDNode parent = null;
         Location loc = null;
@@ -41,23 +48,32 @@ public class KDNode {
                 curr = curr.getRight();
             }
         }
+        KDNode newNode = new KDNode(toAdd, !parent.verticalPartition, root);
         if (loc == Location.LESS_OR_EQ){
-            parent.setLeft(toAdd);
+            parent.setLeft(newNode);
         } else {
-            parent.setRight(toAdd);
+            parent.setRight(newNode);
         }
     }
 
-    private Location locate(KDNode node) {
-        if (verticalPartition && node.p.getY() > this.p.getY()){
+    private Location locate(Point p) {
+        if (verticalPartition && p.getX() > this.p.getX()){
             return Location.GREATER;
-        } else if (verticalPartition && node.p.getY() <= this.p.getY()){
+        } else if (verticalPartition && p.getX() <= this.p.getX()){
             return Location.LESS_OR_EQ;
-        } else if (node.p.getX() > this.p.getX()){
+        } else if (p.getY() > this.p.getY()){
             return Location.GREATER;
         } else {
             return Location.LESS_OR_EQ;
         }
+    }
+
+    public int getX(){
+        return p.getX();
+    }
+
+    public int getY(){
+        return p.getY();
     }
 
     public KDNode getLeft() {
@@ -74,6 +90,24 @@ public class KDNode {
 
     public void setRight(KDNode right) {
         this.right = right;
+    }
+
+    public boolean containsOverlap() {
+        return containsOverlap(root.getLeft()) || containsOverlap(root.getRight());
+    }
+
+    private boolean containsOverlap(KDNode node) {
+        if (node == null || node.getLeft() == null || node.getRight() == null){
+            return false;
+        }
+        boolean isInXInterval = node.getX() > node.getLeft().getX() && node.getX() < node.getRight().getX();
+        boolean isInYInterval = node.getY() > node.getLeft().getY() && node.getY() < node.getRight().getY();
+
+        if (isInXInterval && isInYInterval){
+            return true;
+        } else {
+            return containsOverlap(node.getLeft()) || containsOverlap(node.getRight());
+        }
     }
 
     private enum Location{

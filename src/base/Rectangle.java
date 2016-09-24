@@ -17,6 +17,10 @@ public class Rectangle {
         this.setRightUp(rightUp);
     }
 
+    public int area(){
+        return (rightBottom.getX() - leftUp.getX()) * (leftUp.getY() - rightBottom.getY());
+    }
+
 
     public Point getLeftUp() {
         return leftUp;
