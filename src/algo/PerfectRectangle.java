@@ -1,7 +1,7 @@
 package algo;
 
-import base.Point;
-import base.Rectangle;
+import base.twodim.Point2D;
+import base.twodim.Rectangle;
 import kdtree.KDNode;
 
 import java.util.Collection;
@@ -29,7 +29,7 @@ public class PerfectRectangle {
             return false;
         }
 
-        Point median = getMedian(rectangles); //O(N)
+        Point2D median = getMedian(rectangles); //O(N)
 
         KDNode tree = new KDNode(median, true);// start partitioning vertically from median
 
@@ -68,7 +68,7 @@ public class PerfectRectangle {
         }
     }
 
-    private Point getMedian(Collection<Rectangle> rectangles) {
+    private Point2D getMedian(Collection<Rectangle> rectangles) {
         int xSum = 0;
         int ySum = 0;
         int nPoints = rectangles.size() * 4;
@@ -84,7 +84,7 @@ public class PerfectRectangle {
             ySum += r.getRightBottom().getY();
         }
 
-        return new Point(xSum / nPoints, ySum / nPoints);
+        return new Point2D(xSum / nPoints, ySum / nPoints);
     }
 
 }

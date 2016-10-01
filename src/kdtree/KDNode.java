@@ -1,13 +1,13 @@
 package kdtree;
 
-import base.Point;
+import base.twodim.Point2D;
 
 /**
  * Created by nezdolik on 24.09.16.
  */
 public class KDNode {
 
-    private Point p;
+    private Point2D p;
     private boolean verticalPartition;
 
     private KDNode left;
@@ -15,27 +15,27 @@ public class KDNode {
 
     private KDNode root;
 
-    public KDNode(Point p, boolean isVerticalPartition){
+    public KDNode(Point2D p, boolean isVerticalPartition){
         this.p = p;
         this.verticalPartition = isVerticalPartition;
         this.root = this;
     }
 
-    public KDNode(Point p, boolean isVerticalPartition, KDNode root){
+    public KDNode(Point2D p, boolean isVerticalPartition, KDNode root){
         this.p = p;
         this.verticalPartition = isVerticalPartition;
         this.root = root;
     }
 
-    public void add(Point point){
+    public void add(Point2D point2D){
         if (root == null){
             this.root = new KDNode(p, true);
         } else {
-            add(root, point);
+            add(root, point2D);
         }
     }
 
-    public void add(KDNode node, Point toAdd){
+    public void add(KDNode node, Point2D toAdd){
         KDNode curr = node;
         KDNode parent = null;
         Location loc = null;
@@ -56,7 +56,7 @@ public class KDNode {
         }
     }
 
-    private Location locate(Point p) {
+    private Location locate(Point2D p) {
         if (verticalPartition && p.getX() > this.p.getX()){
             return Location.GREATER;
         } else if (verticalPartition && p.getX() <= this.p.getX()){
