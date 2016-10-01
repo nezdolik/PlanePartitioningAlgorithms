@@ -6,7 +6,7 @@ import base.twodim.Rectangle;
 
 import static base.twodim.Line2D.Direction;
 
-//TODO add processing of top cross point
+//TODO add processing of right cross point
 
 /**
  * Created by nezdolik on 01.10.16.
