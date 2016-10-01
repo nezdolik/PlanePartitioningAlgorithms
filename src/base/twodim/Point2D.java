@@ -7,19 +7,19 @@ import base.KDPoint;
  */
 public class Point2D implements KDPoint {
 
-    private int x;
-    private int y;
+    double x;
+    double y;
 
-    public Point2D(int x, int y) {
+    public Point2D(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 

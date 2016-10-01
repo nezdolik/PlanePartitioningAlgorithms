@@ -26,6 +26,15 @@ public class Line2D {
         return slope;
     }
 
+    //todo add support for vertical and horizontal lines
+    public Direction direction(){
+        if (Math.signum(slope) == 1){
+            return Direction.INCREASING;
+        } else {
+            return Direction.DECREASING;
+        }
+    }
+
 
     public void extend(Point2D point2D) {
         if (point2D != null){
@@ -35,5 +44,9 @@ public class Line2D {
 
     public List<Point2D> getPoints() {
         return points;
+    }
+
+    public enum Direction{
+        INCREASING, DECREASING
     }
 }

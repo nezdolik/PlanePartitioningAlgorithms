@@ -10,8 +10,8 @@ public class Rectangle {
     private Point2D rightUp;
     private Point2D rightBottom;
 
-    private int height;
-    private int width;
+    private double height;
+    private double width;
 
     public Rectangle(Point2D leftUp, Point2D rightBottom, Point2D leftBottom, Point2D rightUp) {
         this.leftUp = leftUp;
@@ -22,7 +22,7 @@ public class Rectangle {
         this.width = Math.abs(rightBottom.getX() - leftBottom.getX());
     }
 
-    public int area(){
+    public double area(){
         return height * width;
     }
 
@@ -43,11 +43,11 @@ public class Rectangle {
         return rightBottom;
     }
 
-    public int height(){
+    public double height(){
         return height;
     }
 
-    public int width(){
+    public double width(){
         return width;
     }
 

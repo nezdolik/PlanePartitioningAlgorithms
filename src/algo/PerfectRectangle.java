@@ -41,10 +41,10 @@ public class PerfectRectangle {
 
     private boolean constructPerf(KDNode tree, Collection<Rectangle> rectangles) {
         int summaryArea = 0;
-        int maxX = Integer.MIN_VALUE;
-        int maxY = Integer.MIN_VALUE;
-        int minX = Integer.MAX_VALUE;
-        int minY = Integer.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double maxY = Double.MIN_VALUE;
+        double minX = Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
 
         for (Rectangle r : rectangles){
             summaryArea += r.area();
@@ -63,7 +63,7 @@ public class PerfectRectangle {
         if (isOverlap){
             return false;
         } else {
-            int perfectArea = (maxX - minX) * (maxY - minY);
+            double perfectArea = (maxX - minX) * (maxY - minY);
             return summaryArea == perfectArea;
         }
     }

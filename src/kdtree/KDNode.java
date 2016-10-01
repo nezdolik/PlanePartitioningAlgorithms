@@ -68,11 +68,11 @@ public class KDNode {
         }
     }
 
-    public int getX(){
+    public double getX(){
         return p.getX();
     }
 
-    public int getY(){
+    public double getY(){
         return p.getY();
     }
 
