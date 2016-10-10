@@ -1,5 +1,9 @@
 package intervaltree;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by nezdolik on 11.10.16.
  *
@@ -24,9 +28,10 @@ public class IntervalNode<K extends Comparable, V> implements IntervalST<K, V>{
 
     private int size;
 
-    public IntervalNode(K lo, K hi){
+    public IntervalNode(K lo, K hi, V val){
         this.lo = lo;
         this.hi = hi;
+        this.val = val;
         this.root = this;
         this.maxEndPoint = hi;
         this.size = 1;
@@ -47,7 +52,8 @@ public class IntervalNode<K extends Comparable, V> implements IntervalST<K, V>{
             right.flush(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, sb);
         }
         sb.append(prefix).append(isTail ? "└── " : "┌── ").
-        append("(").append(lo).append(":").append(hi).append(":").append(maxEndPoint).append(")").append("\n");
+        append("(").append(lo).append(":").append(hi)
+                .append(":").append(val).append(":").append(maxEndPoint).append(")").append("\n");
         if(left!=null) {
             left.flush(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, sb);
         }
@@ -63,8 +69,8 @@ public class IntervalNode<K extends Comparable, V> implements IntervalST<K, V>{
 
 
     @Override
-    public void add(K lo, K hi) {
-        IntervalNode<K,V> newInterval = add(root, lo, hi);
+    public void add(K lo, K hi, V val) {
+        IntervalNode<K,V> newInterval = add(root, lo, hi, val);
         newInterval.root = root;
     }
 
@@ -73,10 +79,33 @@ public class IntervalNode<K extends Comparable, V> implements IntervalST<K, V>{
         return size;
     }
 
-    private IntervalNode<K,V> add(IntervalNode<K,V> node, K lo, K hi){
+    @Override
+    public Collection<V> intersects(K lo, K hi) {
+        return intersects(root, lo, hi, new LinkedList<V>());
+    }
+
+    private Collection<V> intersects(IntervalNode<K,V> node, K lo, K hi, List<V> res) {
+        if (node == null){
+            return res;
+        }
+        if (node.lo.compareTo(lo) <= 0 && node.hi.compareTo(lo) >= 0){
+            res.add(node.val);
+        }
+        if (left == null){
+            intersects(node.right, lo, hi, res);
+        } else if (left.maxEndPoint.compareTo(lo) >= 0){
+            intersects(node.left, lo, hi, res);
+        } else {
+            intersects(node.right, lo, hi, res);
+        }
+
+        return res;
+    }
+
+    private IntervalNode<K,V> add(IntervalNode<K,V> node, K lo, K hi, V val){
 
         if (node == null){
-            return new IntervalNode<K,V>(lo, hi);
+            return new IntervalNode<K,V>(lo, hi, val);
         }
 
         node.maxEndPoint = (node.maxEndPoint.compareTo(hi) < 0)
@@ -84,9 +113,9 @@ public class IntervalNode<K extends Comparable, V> implements IntervalST<K, V>{
         ++node.size;
 
         if (node.lo.compareTo(lo) > 0){
-            node.left = add(node.left, lo, hi);
+            node.left = add(node.left, lo, hi, val);
         } else {
-            node.right = add(node.right, lo, hi);
+            node.right = add(node.right, lo, hi, val);
         }
 
         return node;
